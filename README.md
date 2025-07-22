@@ -14,3 +14,19 @@ pkg-config --modversion gtk4
 systemctl --user import-environment DISPLAY XAUTHORITY
 systemctl --user restart xdg-desktop-portal xdg-desktop-portal-gtk
 ```
+
+# Run with sanitizers
+```
+inv build --debug
+LSAN_OPTIONS="suppressions=lsan.supp" ./build/gtk_file_viewer
+```
+
+If sanitizer output is not equal, the following you have memory leak:
+```
+-----------------------------------------------------
+Suppressions used:
+  count      bytes template
+      1        640 XGetVisualInfo
+-----------------------------------------------------
+```
+

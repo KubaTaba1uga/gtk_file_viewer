@@ -1,0 +1,32 @@
+# C Minilib Init
+# ******************************************************************************
+# *    Project
+# ******************************************************************************
+project('gtk_file_viewer', 'c',
+         version: '0.0.1',
+	 meson_version: '>=1.0.1',
+	 default_options: [
+            'werror=true',
+            'c_std=c11',
+         ],
+)
+
+# ******************************************************************************
+# *    App
+# ******************************************************************************
+subdir('src')
+
+gtk_file_viewer_deps = []
+gtk_file_viewer_inc = include_directories('src')
+gtk_file_viewer_lib = library('gtk_file_viewer',
+                         sources,
+			 include_directories: gtk_file_viewer_inc,
+                         dependencies: gtk_file_viewer_deps,
+)
+gtk_file_viewer_exe = executable(
+  'gtk_file_viewer',
+  link_with: gtk_file_viewer_lib,
+  include_directories: gtk_file_viewer_inc,
+  dependencies: gtk_file_viewer_deps,  
+)
+

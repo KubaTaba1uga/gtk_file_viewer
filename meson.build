@@ -16,16 +16,13 @@ project('gtk_file_viewer', 'c',
 # ******************************************************************************
 subdir('src')
 
+gtk_dep = dependency('gtk4', version : '>=4.8.3')
 gtk_file_viewer_deps = []
 gtk_file_viewer_inc = include_directories('src')
-gtk_file_viewer_lib = library('gtk_file_viewer',
-                         sources,
-			 include_directories: gtk_file_viewer_inc,
-                         dependencies: gtk_file_viewer_deps,
-)
+
 gtk_file_viewer_exe = executable(
   'gtk_file_viewer',
-  link_with: gtk_file_viewer_lib,
+  sources,
   include_directories: gtk_file_viewer_inc,
   dependencies: gtk_file_viewer_deps,  
 )

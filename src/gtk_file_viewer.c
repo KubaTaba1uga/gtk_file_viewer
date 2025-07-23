@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
 
   puts("Running app...");
 
-  err = frontend_start(gui);
+  err = frontend_start(gui, argc, argv);
   if (err) {
     goto error_frontend_cleanup;
   }

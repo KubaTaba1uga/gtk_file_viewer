@@ -13,5 +13,6 @@ cme_error_t frontend_create(const char *app_name, const char *window_name,
                             frontend_t *out);
 
 void frontend_destroy(frontend_t *out);
-cme_error_t frontend_start(frontend_t frontend);
+cme_error_t frontend_start(frontend_t frontend, int argc, char **argv);
+
 #endif // GTK_FILE_VIEWER_FRONTEND

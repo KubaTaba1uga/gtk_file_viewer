@@ -1,32 +1,48 @@
-#include <X11/Xlib.h>
+#include "c_minilib_error.h"
+#include "frontend/frontend.h"
+#include <asm-generic/errno.h>
 #include <fontconfig/fontconfig.h>
-#include <gdk/x11/gdkx.h>
 #include <gtk/gtk.h>
 #include <stdio.h>
-
-static void activate(GtkApplication *app, gpointer user_data) {
-  GtkWidget *window = NULL;
-
-  window = gtk_application_window_new(app);
-  gtk_window_set_title(GTK_WINDOW(window), "File Viewer");
-  gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
-  gtk_window_present(GTK_WINDOW(window));
-}
+#include <stdlib.h>
 
 int main(int argc, char **argv) {
-  GtkApplication *app;
-  int status;
+  cme_error_t err;
 
-  app = gtk_application_new("org.gtk.example", G_APPLICATION_DEFAULT_FLAGS);
-  g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
-  status = g_application_run(G_APPLICATION(app), argc, argv);
-  g_object_unref(app);
+  puts("Starting app...");
 
-  // Cleanup X11
-  GdkDisplay *gd = gdk_display_get_default();
-  gdk_display_close(gd);
-  // Cleanup fontconfig
-  FcFini();
+  int err_code = cme_init();
+  if (err_code) {
+    err = cme_error(EINPROGRESS, "Unable to init error lib");
+    goto error_out;
+  };
 
-  return status;
+  frontend_t gui;
+  err =
+      frontend_create("taba1uga.GtkFileViewer", "File Viewer", 1200, 800, &gui);
+  if (err) {
+    goto error_out;
+  }
+
+  puts("Running app...");
+
+  err = frontend_start(gui);
+  if (err) {
+    goto error_frontend_cleanup;
+  }
+
+  puts("Shutting down app...");
+
+  frontend_destroy(&gui);
+
+  return 0;
+
+error_frontend_cleanup:
+  frontend_destroy(&gui);
+error_out : {
+  char err_buf[2048];
+  cme_error_dump_to_str(err, sizeof(err_buf), err_buf);
+  puts(err_buf);
+  return err->code;
+}
 }

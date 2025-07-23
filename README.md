@@ -18,7 +18,8 @@ systemctl --user restart xdg-desktop-portal xdg-desktop-portal-gtk
 # Run with sanitizers
 ```
 inv build --debug
-LSAN_OPTIONS="suppressions=lsan.supp" ./build/gtk_file_viewer
+export LSAN_OPTIONS="$LSAN_OPTIONS suppressions=src/lsan.supp"
+./build/gtk_file_viewer
 ```
 
 If sanitizer output is not equal, the following you have memory leak:

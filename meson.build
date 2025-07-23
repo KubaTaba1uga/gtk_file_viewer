@@ -21,7 +21,12 @@ gtk_x11_dep  = dependency('gtk4-x11', required: true)
 fontconfig_dep = dependency('fontconfig', required: true)
 x11_dep  = dependency('x11', required: true)
 
-gtk_file_viewer_deps = [gtk_dep, gtk_x11_dep, x11_dep, fontconfig_dep]
+c_minilib_error_dep = dependency('c_minilib_error',
+  fallback: ['c_minilib_error', 'c_minilib_error_dep'],
+  required: true,
+)
+
+gtk_file_viewer_deps = [gtk_dep, gtk_x11_dep, x11_dep, fontconfig_dep, c_minilib_error_dep]
 gtk_file_viewer_inc = include_directories('src')
 
 gtk_file_viewer_exe = executable(

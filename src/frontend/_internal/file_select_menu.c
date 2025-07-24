@@ -59,9 +59,10 @@ cme_error_t FileSelectMenu_create(struct Frontend *frontend,
   file_path = files;
   for (int i = 0; *file_path != NULL; i++, file_path++) {
     puts(*file_path);
-    GtkWidget *file_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
+    GtkWidget *file_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
     gtk_widget_set_hexpand(file_box, TRUE);
     gtk_widget_set_halign(file_box, GTK_ALIGN_FILL);
+    gtk_widget_set_margin_top(file_box, 10);
 
     gtk_box_append(GTK_BOX(files_box), file_box);
 

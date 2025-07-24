@@ -77,9 +77,6 @@ cme_error_t FileSelectMenu_create(struct Frontend *frontend,
     gtk_widget_set_margin_start(entry_button, 20);
     gtk_box_append(GTK_BOX(file_box), entry_button);
 
-    /* gtk_grid_attach(GTK_GRID(file_entry), entry_button, max, 1,
-     * strlen("Open"), */
-    /* 1); */
     (void)i;
   };
 

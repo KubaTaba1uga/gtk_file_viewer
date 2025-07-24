@@ -17,7 +17,6 @@ static void move_to_file_view(GtkWidget *widget, gpointer data) {
   const char *file_path = gtk_label_get_text(GTK_LABEL(prev));
   puts(file_path);
   FileView_create(frontend, file_path);
-  /* FileSelectMenu_destroy(local_menu); */
 }
 
 cme_error_t FileSelectMenu_create(struct Frontend *frontend,

@@ -1,5 +1,6 @@
 #include "frontend/_internal/file_view.h"
 #include "frontend/_internal/frontend.h"
+#include <stdio.h>
 
 cme_error_t FileView_create(struct Frontend *frontend, const char *file_path) {
   cme_error_t err;
@@ -12,9 +13,19 @@ cme_error_t FileView_create(struct Frontend *frontend, const char *file_path) {
 
   gtk_window_set_child(GTK_WINDOW(frontend->main_window), main_box);
 
+  const char str[255];
+  sprintf((char *)str, "File %s:", file_path);
+  GtkWidget *title = gtk_label_new(str);
+  gtk_widget_set_halign(title, GTK_ALIGN_START);
+  gtk_widget_set_valign(title, GTK_ALIGN_START);
+
+  gtk_box_append(GTK_BOX(main_box), title);
+
   GtkWidget *scrolled = gtk_scrolled_window_new();
   gtk_widget_set_hexpand(scrolled, TRUE);
   gtk_widget_set_vexpand(scrolled, TRUE);
+  gtk_widget_set_margin_top(scrolled, 10);
+  gtk_widget_set_margin_start(scrolled, 20);
   gtk_scrolled_window_set_min_content_width(GTK_SCROLLED_WINDOW(scrolled), 600);
   gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(scrolled),
                                              800);

@@ -12,7 +12,7 @@ struct FileView {
 };
 
 struct Frontend;
-cme_error_t FileView_create(struct Frontend *frontend, struct FileView *out);
+cme_error_t FileView_create(struct Frontend *frontend, const char *file_path);
 /* void FileView_destroy(struct FileView *out); */
 
 #endif // GTK_FILE_VIEWER_FRONTEND_INT_FILE_VIEW_H

@@ -13,8 +13,10 @@ static void move_to_file_view(GtkWidget *widget, gpointer data) {
   puts("HIT");
 
   struct Frontend *frontend = data;
-
-  FileView_create(frontend, &frontend->file_view);
+  GtkWidget *prev = gtk_widget_get_prev_sibling(widget);
+  const char *file_path = gtk_label_get_text(GTK_LABEL(prev));
+  puts(file_path);
+  FileView_create(frontend, file_path);
   /* FileSelectMenu_destroy(local_menu); */
 }
 

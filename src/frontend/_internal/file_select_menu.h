@@ -8,7 +8,7 @@
  *                           File Select Menu                                 *
  ******************************************************************************/
 struct FileSelectMenu {
-  GtkWidget *files_grid;
+  GtkWidget *main_box;
 };
 
 struct Frontend;

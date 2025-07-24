@@ -1,11 +1,11 @@
 #ifndef GTK_FILE_VIEWER_UTILS_FILE_H
 #define GTK_FILE_VIEWER_UTILS_FILE_H
-
 #include "c_minilib_error.h"
 #include <fcntl.h>
 #include <glib.h>
 #include <glib/gstdio.h>
 #include <stdint.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -20,6 +20,9 @@ static inline cme_error_t list_dir(const char *path, uint32_t n,
       break;
     }
   }
+
+  // This is memory leak we need to fix
+  /* g_dir_close(dir); */
 
   return 0;
 }
